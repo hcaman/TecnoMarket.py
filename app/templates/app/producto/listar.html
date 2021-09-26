@@ -37,15 +37,20 @@
         <td>{{ p.marca | title }}</td>
         <td>{% if p.nuevo %} SI {% else %} NO {%endif%}</td>
         <td>
-          <a href="{% url 'editar_producto' p.id %}" class="btn btn-info btn-sm"
-            >Modificar</a
-          >
-          <a
-            onclick="eliminarProd({{ p.id }})"
-            href="#"
-            class="btn btn-danger btn-sm"
-            >Eliminar</a
-          >
+        
+          {% if perms.app.change_producto %}
+            <a href="{% url 'editar_producto' p.id %}" class="btn btn-info btn-sm"
+              >Modificar</a
+            >
+          {% endif %}
+          {% if perms.app.delete_producto %}
+            <a
+              onclick="eliminarProd({{ p.id }})"
+              href="#"
+              class="btn btn-danger btn-sm"
+              >Eliminar</a
+            >
+          {% endif %}
         </td>
       </tr>
       {% endfor %}

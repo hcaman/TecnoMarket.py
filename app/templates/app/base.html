@@ -48,8 +48,12 @@
             </li>
             <li><a href="{% url 'galeria' %}">Galería</a></li>
             {% if user.is_authenticated %}
-            <li><a href="{% url 'agregar_producto' %}">AgregarProducto</a></li>
-            <li><a href="{% url 'listar_productos' %}">ListarProductos</a></li>
+              {% if perms.app.add_producto %}
+                <li><a href="{% url 'agregar_producto' %}">AgregarProducto</a></li>
+              {% endif %}
+              {% if perms.app.view_producto %}
+                <li><a href="{% url 'listar_productos' %}">ListarProductos</a></li>
+              {% endif %}
               <li>
                 <a href="{% url 'logout' %}"> Cerrar sesion </a>
               </li>

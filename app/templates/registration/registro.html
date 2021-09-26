@@ -10,7 +10,7 @@
     integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
     crossorigin="anonymous"
   />
-  <title>Ingreso al sistema</title>
+  <title>Registro de usuario</title>
 </head>
 <body>
   {% load crispy_forms_tags %}
@@ -20,13 +20,15 @@
       <div class="col-12 col-md-6 offset-md-3">
         <div class="card">
           <div class="card-body">
-            <h2>Ingresa tus credenciales</h2>
+            <h2>Registrate!</h2>
             <form action="" method="POST">
               {% csrf_token %}
               {{ form | crispy }}
-              <a href="{% url 'home' %}">Ir al home</a>
-              <a href="{% url 'registro' %}"> Registrate </a>
-              <input type="submit" value="Ingresar" class="btn btn-success float-right">
+              <div>
+                <a href="{% url 'home' %}">Ir al home</a>
+                <a href="{% url 'login' %}">Iniciar sesion</a>
+                <input type="submit" value="Registrarse" class="btn btn-success float-right">
+              </div>
             </form>
           </div>
         </div>

@@ -16,6 +16,7 @@ class ContactoForm(forms.ModelForm):
 
 
 class ProductoForm(forms.ModelForm):
+    image = forms.ImageField(required=False)
     class Meta:
         model = Producto
         fields = '__all__'

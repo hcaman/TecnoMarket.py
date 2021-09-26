@@ -18,6 +18,7 @@
     />
     {% block css %} {% endblock %}
     <link rel="stylesheet" href="{% static 'app/css/estilos.css' %}" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
 
   <body>
@@ -53,7 +54,17 @@
       </div>
     </header>
 
-    <div id="contenido">{% block contenido %} {% endblock %}</div>
+    <div id="contenido">
+      {% if messages %} {% for m in messages %}
+      <script>
+        Swal.fire({
+          title: 'Felicitaciones!',
+          text: '{{m}}',
+          icon: 'success',
+        });
+      </script>
+      {% endfor %} {% endif %} {% block contenido %} {% endblock %}
+    </div>
 
     <footer>
       <div class="marcas">
@@ -72,7 +83,6 @@
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
     <script src="js/menu.js"></script>
 
     {% block js %} {% endblock %}

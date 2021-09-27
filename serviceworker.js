@@ -50,3 +50,19 @@ self.addEventListener("fetch", event => {
     )
 });
 
+// save the urls in cache - very aggressive 
+
+// self.addEventListener("fetch", event => {
+//     event.respondWith(
+//         fetch(event.request)
+//             .then(response => {
+//                 return caches.open(staticCacheName)
+//                 .then(c => { 
+//                     c.put(event.request.url, response.clone())
+//                 })
+//             })
+//             .catch(() => {
+//                 return caches.match(event.request);
+//             })
+//     )
+// });

@@ -11,6 +11,9 @@ from .serializers import ProductoSerializers, MarcaSerializers
 
 # Create your views here.
 
+def error_facebook(req):
+    return render(req, 'registration/error_facebook.html')
+
 class MarcaViewSet(viewsets.ModelViewSet):
     queryset = Marca.objects.all()
     serializer_class = MarcaSerializers

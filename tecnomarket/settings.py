@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-@(m21-1lg&v&145rklpmei33zyvh@7a-y1l(u7(ox8=1#dvgy(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 
@@ -35,6 +35,9 @@ LOGOUT_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_FACEBOOK_KEY = ""
 SOCIAL_AUTH_FACEBOOK_SECRET = ""
+
+SOCIAL_AUTH_RAISE_EXCEPTIONS = False
+LOGIN_ERROR_URL = '/error-facebook/'
 
 # Application definition
 
@@ -66,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'tecnomarket.urls'
@@ -81,9 +85,26 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
+]
+
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_link'] 
+
+# Extract more data from facebook
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {  
+  'fields': 'id, name, email, picture.type(large), link'
+}
+
+# Save the data in DB
+SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [               
+    ('name', 'name'),
+    ('email', 'email'),
+    ('picture', 'picture'),
+    ('link', 'profile_url'),
 ]
 
 WSGI_APPLICATION = 'tecnomarket.wsgi.application'

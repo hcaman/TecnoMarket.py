@@ -1,14 +1,33 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Producto
+from .models import Producto, Marca
 from .forms import ContactoForm, ProductoForm, CustomUserCreationForm
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, permission_required
+from rest_framework import viewsets
+from .serializers import ProductoSerializers, MarcaSerializers
 
 # Create your views here.
 
+class MarcaViewSet(viewsets.ModelViewSet):
+    queryset = Marca.objects.all()
+    serializer_class = MarcaSerializers
+
+class ProductoViewSet(viewsets.ModelViewSet):
+    queryset = Producto.objects.all()
+    serializer_class = ProductoSerializers
+
+    def get_queryset(self):
+        productos = Producto.objects.all()
+        nombre = self.request.GET.get('nombre')
+        
+        if nombre:
+            productos = productos.filter(nombre__contains=nombre)
+        
+        return productos
+        # return super().get_queryset()
 
 def home(request):
     productos = Producto.objects.all()
